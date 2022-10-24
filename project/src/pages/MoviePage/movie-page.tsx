@@ -1,4 +1,10 @@
+import {Link, useNavigate, useParams} from 'react-router-dom';
+import Header from '../../components/Header/header';
+
 export default function MoviePage() {
+  const navigate = useNavigate();
+  const params = useParams();
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -12,31 +18,7 @@ export default function MoviePage() {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                    width="63"
-                    height="63"
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -50,6 +32,7 @@ export default function MoviePage() {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
+                  onClick={() => navigate(`/player/${params.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -59,6 +42,7 @@ export default function MoviePage() {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
+                  onClick={() => navigate('/myList')}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -66,9 +50,9 @@ export default function MoviePage() {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">
+                <Link to={`/films/${params.id}/review`} className="btn film-card__button">
                   Add review
-                </a>
+                </Link>
               </div>
             </div>
           </div>
