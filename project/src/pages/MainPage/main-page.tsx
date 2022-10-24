@@ -1,76 +1,54 @@
+import {useNavigate} from 'react-router-dom';
 import FilmCard from '../../components/FilmCard/film-card';
-import MainPageProps from '../../types/main-page-props';
+import FilmsList from '../../components/FilmsList/films-list';
+import Header from '../../components/Header/header';
+import {FilmType} from '../../types/film-type';
 
-export default function MainPage({
-  name,
-  genre,
-  released,
-}: MainPageProps): JSX.Element {
-  const filmCards: Array<JSX.Element> = [];
-  for (let i = 0; i < 20; i++) {
-    filmCards.push(<FilmCard title="Film" imgSrc="/src" />);
-  }
+type MainPageProps = {
+  filmPromo: FilmType;
+  films: FilmType[];
+};
+
+export default function MainPage({filmPromo, films}: MainPageProps): JSX.Element {
+  const navigate = useNavigate();
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={filmPromo.backgroundImage}
+            alt={filmPromo.name}
           />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt={name}
+                src={filmPromo.posterImage}
+                alt={filmPromo.name}
                 width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{name}</h2>
+              <h2 className="film-card__title">{filmPromo.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{released}</span>
+                <span className="film-card__genre">{filmPromo.genre}</span>
+                <span className="film-card__year">{filmPromo.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
+                  onClick={() => navigate(`/player/${filmPromo.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -80,6 +58,7 @@ export default function MainPage({
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
+                  onClick={() => navigate('/myList')}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -150,7 +129,9 @@ export default function MainPage({
             </li>
           </ul>
 
-          <div className="catalog__films-list">{filmCards.map((el) => el)}</div>
+          <div className="catalog__films-list">
+            <FilmsList films={films}/>
+          </div>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">

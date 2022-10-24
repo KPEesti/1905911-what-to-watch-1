@@ -1,25 +1,27 @@
-type FilmCardProps = {
-  title: string;
-  imgSrc: string;
-};
+import { useNavigate } from "react-router-dom";
+import { FilmType } from "../../types/film-type";
 
-export default function FilmCard({
-  title,
-  imgSrc,
-}: FilmCardProps): JSX.Element {
+type FilmCardProps ={
+  film: FilmType
+  setActive: React.Dispatch<React.SetStateAction<number>>
+}
+
+export default function FilmCard({film, setActive}: FilmCardProps): JSX.Element {
+  const navigate = useNavigate();
+
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseOver={() => setActive(film.id)} onMouseOut={() => setActive(0)} onClick={() => navigate(`/films/${film.id}`)}>
       <div className="small-film-card__image">
         <img
-          src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-          alt="Fantastic Beasts: The Crimes of Grindelwald"
+          src={film.previewImage}
+          alt={film.name}
           width="280"
           height="175"
         />
       </div>
       <h3 className="small-film-card__title">
         <a className="small-film-card__link" href="film-page.html">
-          Fantastic Beasts: The Crimes of Grindelwald
+          {film.name}
         </a>
       </h3>
     </article>
