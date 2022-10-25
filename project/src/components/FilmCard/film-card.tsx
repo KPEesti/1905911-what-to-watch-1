@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { FilmType } from "../../types/film-type";
+import {useNavigate} from 'react-router-dom';
+import {FilmType} from '../../types/film-type';
 
-type FilmCardProps ={
+type FilmCardProps = {
   film: FilmType
   setActive: React.Dispatch<React.SetStateAction<number>>
 }

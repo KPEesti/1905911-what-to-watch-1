@@ -1,6 +1,6 @@
 import {FilmType} from '../types/film-type';
 
-export const filmPromo = {
+export const filmPromo : FilmType = {
   'name': 'Aviator',
   'posterImage': 'https://10.react.pages.academy/static/film/poster/Aviator.jpg',
   'previewImage': 'https://10.react.pages.academy/static/film/preview/aviator.jpg',
@@ -22,4 +22,4 @@ export const filmPromo = {
   'isFavorite': false,
   'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
   'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
-}
+};

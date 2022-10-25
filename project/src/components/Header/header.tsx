@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 
 export default function Header() {
@@ -24,9 +24,9 @@ export default function Header() {
           </div>
         </li>
         <li className="user-block__item">
-          <a className="user-block__link">Sign out</a>
+          <Link className="user-block__link" to={'/login'}>Sign out</Link>
         </li>
       </ul>
     </header>
-  )
+  );
 }

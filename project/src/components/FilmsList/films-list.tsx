@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import {FilmType} from '../../types/film-type';
 import FilmCard from '../FilmCard/film-card';
 
@@ -11,9 +11,7 @@ export default function FilmsList({films}: FilmsListProps) {
 
   return (
     <>
-      {films.map((film) => {
-        return <FilmCard key={film.id} film={film} setActive={setActiveCard}/>
-      })}
+      {films.map((film) => <FilmCard key={film.id} film={film} setActive={setActiveCard}/>)}
     </>
-  )
+  );
 }

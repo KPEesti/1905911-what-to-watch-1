@@ -1,6 +1,6 @@
-import FilmsList from "../../components/FilmsList/films-list";
-import Header from "../../components/Header/header";
-import { FilmType } from "../../types/film-type";
+import FilmsList from '../../components/FilmsList/films-list';
+import Header from '../../components/Header/header';
+import {FilmType} from '../../types/film-type';
 
 type MyListProps = {
   films: FilmType[]
