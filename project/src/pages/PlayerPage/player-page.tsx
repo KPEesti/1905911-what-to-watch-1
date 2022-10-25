@@ -1,4 +1,9 @@
+import {useNavigate, useParams} from 'react-router-dom';
+
 export default function PlayerPage() {
+  const navigate = useNavigate();
+  const params = useParams();
+
   return (
     <div className="player">
       <video
@@ -8,7 +13,7 @@ export default function PlayerPage() {
       >
       </video>
 
-      <button type="button" className="player__exit">
+      <button type="button" className="player__exit" onClick={() => navigate(-1)}>
         Exit
       </button>
 
@@ -21,7 +26,7 @@ export default function PlayerPage() {
               max="100"
             >
             </progress>
-            <div className="player__toggler" style={{ left: '30%' }}>
+            <div className="player__toggler" style={{left: '30%'}}>
               Toggler
             </div>
           </div>
