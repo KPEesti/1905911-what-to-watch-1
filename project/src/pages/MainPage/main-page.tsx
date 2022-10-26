@@ -21,8 +21,6 @@ export default function MainPage({filmPromo, films}: MainPageProps): JSX.Element
           />
         </div>
 
-        <h1 className="visually-hidden">WTW</h1>
-
         <Header/>
 
         <div className="film-card__wrap">
