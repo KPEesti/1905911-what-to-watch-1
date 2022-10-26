@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import {FilmType} from '../../types/film-type';
+import {ReviewType} from '../../types/review-type';
 
 import MainPage from '../../pages/MainPage/main-page';
 import LoginPage from '../../pages/LoginPage/login-page';
@@ -13,11 +14,12 @@ import PrivateRoute from '../PrivateRoute/private-route';
 
 type AppProps = {
   filmPromo: FilmType,
-  films: FilmType[]
+  films: FilmType[],
+  reviews: ReviewType[]
 }
 
 
-function App({filmPromo, films}: AppProps): JSX.Element {
+function App({filmPromo, films, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -29,7 +31,7 @@ function App({filmPromo, films}: AppProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={'/films/:id'} element={<MoviePage film={filmPromo}/>}/>
+        <Route path={'/films/:id'} element={<MoviePage film={filmPromo} reviews={reviews}/>}/>
         <Route path={'/films/:id/review'} element=
           {
             <PrivateRoute>
