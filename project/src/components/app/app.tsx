@@ -29,7 +29,7 @@ function App({filmPromo, films}: AppProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={'/films/:id'} element={<MoviePage/>}/>
+        <Route path={'/films/:id'} element={<MoviePage film={filmPromo}/>}/>
         <Route path={'/films/:id/review'} element=
           {
             <PrivateRoute>

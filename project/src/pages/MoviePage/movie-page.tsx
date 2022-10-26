@@ -1,9 +1,28 @@
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import Header from '../../components/Header/header';
+import {FilmType} from '../../types/film-type';
 
-export default function MoviePage() {
+type MoviePageProps = {
+  film: FilmType;
+}
+
+export default function MoviePage({film}: MoviePageProps) {
   const navigate = useNavigate();
   const params = useParams();
+
+  const convertRatingToString = (rating: number) => {
+    if (rating >= 0 && rating < 3) {
+      return 'Bad';
+    } else if (rating >= 3 && rating < 5) {
+      return 'Normal';
+    } else if (rating >= 5 && rating < 8) {
+      return 'Good';
+    } else if (rating >= 8 && rating < 10) {
+      return 'Very good';
+    } else {
+      return 'Awesome';
+    }
+  };
 
   return (
     <>
@@ -11,8 +30,8 @@ export default function MoviePage() {
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src="img/bg-the-grand-budapest-hotel.jpg"
-              alt="The Grand Budapest Hotel"
+              src={film.backgroundImage}
+              alt={film.name}
             />
           </div>
 
@@ -22,10 +41,10 @@ export default function MoviePage() {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -62,8 +81,8 @@ export default function MoviePage() {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={film.posterImage}
+                alt={film.name}
                 width="218"
                 height="327"
               />
@@ -91,37 +110,25 @@ export default function MoviePage() {
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
+                <div className="film-rating__score">{film.rating}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
+                  <span className="film-rating__level">{convertRatingToString(film.rating)}</span>
+                  <span className="film-rating__count">{film.scoresCount} ratings</span>
                 </p>
               </div>
 
               <div className="film-card__text">
                 <p>
-                  In the 1930s, the Grand Budapest Hotel is a popular European
-                  ski resort, presided over by concierge Gustave H. (Ralph
-                  Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend
-                  and protege.
-                </p>
-
-                <p>
-                  Gustave prides himself on providing first-class service to the
-                  hotel&apos;s guests, including satisfying the sexual needs of the
-                  many elderly women who stay there. When one of Gustave&apos;s
-                  lovers dies mysteriously, Gustave finds himself the recipient
-                  of a priceless painting and the chief suspect in her murder.
+                  {film.description}
                 </p>
 
                 <p className="film-card__director">
-                  <strong>Director: Wes Anderson</strong>
+                  <strong>Director: {film.director}</strong>
                 </p>
 
                 <p className="film-card__starring">
                   <strong>
-                    Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe
-                    and other
+                    Starring: {film.starring.join(', ')} and other
                   </strong>
                 </p>
               </div>
