@@ -10,9 +10,7 @@ export default function ReviewCard({review}: ReviewCardProps) {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const convertDateToString = (date: string) => {
-    return `${monthNames[Number(review.date.slice(5, 7))]} ${review.date.slice(8, 10)}, ${review.date.slice(0, 4)}`
-  };
+  const convertDateToString = (date: string) => `${monthNames[Number(review.date.slice(5, 7))]} ${review.date.slice(8, 10)}, ${review.date.slice(0, 4)}`;
 
   return (
     <div className="review">
@@ -22,7 +20,9 @@ export default function ReviewCard({review}: ReviewCardProps) {
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>
           <time className="review__date"
-                dateTime={review.date.slice(0, 10)}>{convertDateToString(review.date)}</time>
+            dateTime={review.date.slice(0, 10)}
+          >{convertDateToString(review.date)}
+          </time>
         </footer>
       </blockquote>
 

@@ -14,8 +14,6 @@ export default function Tabs({film, reviews}: TabsProps) {
   const detailsRef = useRef<HTMLLIElement | null>(null);
   const reviewRef = useRef<HTMLLIElement | null>(null);
 
-  console.log(activeTab)
-
   const convertRatingToString = (rating: number) => {
     if (rating >= 0 && rating < 3) {
       return 'Bad';
@@ -30,9 +28,7 @@ export default function Tabs({film, reviews}: TabsProps) {
     }
   };
 
-  const convertRunTimeToString = (minutes: number) => {
-    return `${(minutes / 60) | 0} h ${minutes % 60} m`;
-  };
+  const convertRunTimeToString = (minutes: number) => `${(minutes / 60) | 0} h ${minutes % 60} m`;
 
   useEffect(() => {
     if (activeTab === 1) {
@@ -60,7 +56,8 @@ export default function Tabs({film, reviews}: TabsProps) {
             <a href="#" className="film-nav__link" onClick={(e) => {
               e.preventDefault();
               setActiveTab(1);
-            }}>
+            }}
+            >
               Overview
             </a>
           </li>
@@ -68,7 +65,8 @@ export default function Tabs({film, reviews}: TabsProps) {
             <a href="#" className="film-nav__link" onClick={(e) => {
               e.preventDefault();
               setActiveTab(2);
-            }}>
+            }}
+            >
               Details
             </a>
           </li>
@@ -76,7 +74,8 @@ export default function Tabs({film, reviews}: TabsProps) {
             <a href="#" className="film-nav__link" onClick={(e) => {
               e.preventDefault();
               setActiveTab(3);
-            }}>
+            }}
+            >
               Reviews
             </a>
           </li>
@@ -110,8 +109,7 @@ export default function Tabs({film, reviews}: TabsProps) {
             </strong>
           </p>
         </div>
-      </>
-      }
+      </>}
 
       {/*DETAILS*/}
       {activeTab === 2 &&
@@ -123,8 +121,12 @@ export default function Tabs({film, reviews}: TabsProps) {
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Starring</strong>
-            <span className="film-card__details-value"> {film.starring.map((item) => <><>{item},</>
-              <br/></>)}</span>
+            <span className="film-card__details-value"> {film.starring.map((item) => (
+              <>
+                {item}, <br/>
+              </>
+            ))}
+            </span>
           </p>
         </div>
 
@@ -142,8 +144,7 @@ export default function Tabs({film, reviews}: TabsProps) {
             <span className="film-card__details-value">{film.released}</span>
           </p>
         </div>
-      </div>
-      }
+      </div>}
 
       {/*REVIEWS*/}
       {activeTab === 3 &&
@@ -160,8 +161,7 @@ export default function Tabs({film, reviews}: TabsProps) {
               <ReviewCard review={review} key={review.id}/>)
           }
         </div>
-      </div>
-      }
+      </div>}
     </div>
   );
 }
