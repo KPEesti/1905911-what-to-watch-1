@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import ReviewForm from "../../components/ReviewForm/review-form";
+import {Link} from 'react-router-dom';
+import ReviewForm from '../../components/ReviewForm/review-form';
 
 export default function ReviewPage() {
   return (

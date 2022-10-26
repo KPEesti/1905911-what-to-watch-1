@@ -1,8 +1,7 @@
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 export default function PlayerPage() {
   const navigate = useNavigate();
-  const params = useParams();
 
   return (
     <div className="player">
