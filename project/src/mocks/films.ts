@@ -185,4 +185,4 @@ export const films: FilmType[] = [
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
   }
-]
+];

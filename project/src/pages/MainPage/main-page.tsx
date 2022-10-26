@@ -1,5 +1,4 @@
 import {useNavigate} from 'react-router-dom';
-import FilmCard from '../../components/FilmCard/film-card';
 import FilmsList from '../../components/FilmsList/films-list';
 import Header from '../../components/Header/header';
 import {FilmType} from '../../types/film-type';
