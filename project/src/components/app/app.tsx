@@ -2,6 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import {FilmType} from '../../types/film-type';
 import {ReviewType} from '../../types/review-type';
+import {AppRoutes} from '../../utils/consts';
 
 import MainPage from '../../pages/MainPage/main-page';
 import LoginPage from '../../pages/LoginPage/login-page';
@@ -29,23 +30,23 @@ function App({filmPromo, films, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={'/'} element={<MainPage filmPromo={filmPromo}/>}/>
-        <Route path={'/login'} element={<LoginPage/>}/>
-        <Route path={'/myList'} element={
+        <Route path={AppRoutes.Root} element={<MainPage filmPromo={filmPromo}/>}/>
+        <Route path={AppRoutes.Login} element={<LoginPage/>}/>
+        <Route path={AppRoutes.MyList} element={
           <PrivateRoute>
             <MyListPage films={films}/>
           </PrivateRoute>
         }
         />
-        <Route path={'/films/:id'} element={<MoviePage film={filmPromo} reviews={reviews} filmsLike={films}/>}/>
-        <Route path={'/films/:id/review'} element=
+        <Route path={`${AppRoutes.FilmsRoot}:id`} element={<MoviePage film={filmPromo} reviews={reviews} filmsLike={films}/>}/>
+        <Route path={`${AppRoutes.FilmsRoot}:id${AppRoutes.FilmsReview}`} element=
           {
             <PrivateRoute>
               <ReviewPage/>
             </PrivateRoute>
           }
         />
-        <Route path={'/player/:id'} element={<PlayerPage/>}/>
+        <Route path={`${AppRoutes.PlayerRoot}:id`} element={<PlayerPage/>}/>
         <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>
     </BrowserRouter>

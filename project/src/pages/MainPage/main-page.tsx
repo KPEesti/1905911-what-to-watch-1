@@ -81,15 +81,8 @@ export default function MainPage({filmPromo}: MainPageProps): JSX.Element {
 
           <GenreTabs/>
 
-          <div className="catalog__films-list">
-            <FilmsList films={films}/>
-          </div>
+          <FilmsList films={films}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
         </section>
 
         <Footer/>
