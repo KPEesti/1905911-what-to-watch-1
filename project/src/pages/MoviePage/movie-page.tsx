@@ -88,9 +88,7 @@ export default function MoviePage({film, reviews, filmsLike}: MoviePageProps) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <FilmsList films={filmsLike} length={4}/>
-          </div>
+          <FilmsList films={filmsLike} count={4} showMoreButton={false}/>
         </section>
 
         <Footer/>
