@@ -71,4 +71,4 @@ export const reviews: ReviewType[] = [
     'comment': 'I love this movie. This film is a milestone in cinematography. Great Immersive camera-work. This film is an experience and i has already seen it 4 times and I only see more quality of the film.',
     'date': '2022-06-22T12:25:36.946Z'
   }
-]
+];

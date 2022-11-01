@@ -12,6 +12,9 @@ import PlayerPage from '../../pages/PlayerPage/player-page';
 import NotFoundPage from '../../pages/NotFoundPage/not-found-page';
 import PrivateRoute from '../PrivateRoute/private-route';
 
+import {useDispatch} from 'react-redux';
+import {setFilms} from '../../store/action';
+
 type AppProps = {
   filmPromo: FilmType,
   films: FilmType[],
@@ -20,10 +23,13 @@ type AppProps = {
 
 
 function App({filmPromo, films, reviews}: AppProps): JSX.Element {
+  const dispatch = useDispatch();
+  dispatch(setFilms(films));
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={'/'} element={<MainPage filmPromo={filmPromo} films={films}/>}/>
+        <Route path={'/'} element={<MainPage filmPromo={filmPromo}/>}/>
         <Route path={'/login'} element={<LoginPage/>}/>
         <Route path={'/myList'} element={
           <PrivateRoute>
