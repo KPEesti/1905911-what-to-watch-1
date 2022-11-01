@@ -15,9 +15,7 @@ export default function MyListPage({films}: MyListProps) {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <div className="catalog__films-list">
-          <FilmsList films={films}/>
-        </div>
+        <FilmsList films={films}/>
       </section>
 
       <Footer/>

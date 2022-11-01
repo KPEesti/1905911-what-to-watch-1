@@ -1,16 +1,27 @@
 import {FilmType} from '../../types/film-type';
 import FilmCard from '../FilmCard/film-card';
+import {useState} from 'react';
+import ShowMoreButton from '../ShowMoreButton/show-more-button';
 
 type FilmsListProps = {
   films: FilmType[];
-  length?: number
+  count?: number;
+  showMoreButton?: boolean;
 }
 
-export default function FilmsList({films, length = -1}: FilmsListProps) {
+export default function FilmsList({films, showMoreButton = true, count = 8}: FilmsListProps) {
+  const [shownCount, setShownCount] = useState(count);
+
+  const increaseShownCount = () => {
+    setShownCount((prevState) => prevState + 8);
+  };
 
   return (
     <>
-      {films.slice(0, length === -1 ? films.length : length).map((film) => <FilmCard key={film.id} film={film}/>)}
+      <div className="catalog__films-list">
+        {films.slice(0, shownCount).map((film) => <FilmCard key={film.id} film={film}/>)}
+      </div>
+      {(showMoreButton && shownCount < films.length) && <ShowMoreButton onClick={increaseShownCount}/>}
     </>
   );
 }
