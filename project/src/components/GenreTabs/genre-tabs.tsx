@@ -11,9 +11,9 @@ export default function GenreTabs() {
   const tabs = locateGenre(useSelector((state: StateType) => state.films));
   const tabsArr: string[] = [];
 
-  tabs.forEach(tab => {
+  tabs.forEach((tab) => {
     tabsArr.push(tab);
-  })
+  });
 
   const dispatch = useDispatch();
 
@@ -22,24 +22,20 @@ export default function GenreTabs() {
     dispatch(changeGenre(tabName));
     dispatch(getFilmsByGenre());
     setActiveTab(tabName);
-  }
+  };
 
-  const setActiveStyle = (tab: string) => {
-    return tab === activeTab ? 'catalog__genres-item--active' : '';
-  }
+  const setActiveStyle = (tab: string) => tab === activeTab ? 'catalog__genres-item--active' : '';
 
   return (
     <ul className="catalog__genres-list">
       {
-        tabsArr.map(tab => {
-          return (
-            <li key={tab} className={`catalog__genres-item ${setActiveStyle(tab)}`}>
-              <a href="#" className="catalog__genres-link" onClick={(e) => handleClick(e, tab)}>
-                {tab}
-              </a>
-            </li>
-          );
-        })
+        tabsArr.map((tab) => (
+          <li key={tab} className={`catalog__genres-item ${setActiveStyle(tab)}`}>
+            <a href="#" className="catalog__genres-link" onClick={(e) => handleClick(e, tab)}>
+              {tab}
+            </a>
+          </li>
+        ))
       }
     </ul>
   );

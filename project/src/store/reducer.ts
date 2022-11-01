@@ -13,14 +13,14 @@ const initialState: StateType = {
 export const filmsReducer = createReducer(initialState, (builder) => {
   builder.addCase(changeGenre, (state, action) => {
     state.selectedGenre = action.payload;
-  })
+  });
 
   builder.addCase(getFilmsByGenre, (state, action) => {
     state.filmsByGenre = state.selectedGenre === 'All genres' ? state.films : state.films.filter((film) => film.genre === state.selectedGenre);
-  })
+  });
 
   builder.addCase(setFilms, (state, action) => {
     state.films = action.payload;
     state.filmsByGenre = action.payload;
-  })
+  });
 });

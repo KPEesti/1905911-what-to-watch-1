@@ -5,7 +5,7 @@ export function locateGenre(films: FilmType[]) : Set<string> {
 
   films.forEach((film) => {
     result.add(film.genre);
-  })
+  });
 
   return result;
 }
