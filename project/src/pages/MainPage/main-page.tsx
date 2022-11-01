@@ -1,16 +1,21 @@
 import {useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+
 import FilmsList from '../../components/FilmsList/films-list';
 import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
+import GenreTabs from '../../components/GenreTabs/genre-tabs';
+
 import {FilmType} from '../../types/film-type';
+import {StateType} from '../../types/state-type';
 
 type MainPageProps = {
   filmPromo: FilmType;
-  films: FilmType[];
 };
 
-export default function MainPage({filmPromo, films}: MainPageProps): JSX.Element {
+export default function MainPage({filmPromo}: MainPageProps): JSX.Element {
   const navigate = useNavigate();
+  const films = useSelector((state: StateType) => state.filmsByGenre);
 
   return (
     <>
@@ -74,58 +79,7 @@ export default function MainPage({filmPromo, films}: MainPageProps): JSX.Element
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">
-                All genres
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Comedies
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Crime
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Documentary
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Dramas
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Horror
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Kids & Family
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Romance
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Sci-Fi
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Thrillers
-              </a>
-            </li>
-          </ul>
+          <GenreTabs/>
 
           <div className="catalog__films-list">
             <FilmsList films={films}/>
