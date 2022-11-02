@@ -13,4 +13,10 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoutes {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout'
+}
+
 
