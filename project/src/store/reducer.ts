@@ -10,7 +10,7 @@ const initialState: StateType = {
   films: new Array<FilmType>()
 };
 
-export const filmsReducer = createReducer(initialState, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder.addCase(changeGenre, (state, action) => {
     state.selectedGenre = action.payload;
   });
