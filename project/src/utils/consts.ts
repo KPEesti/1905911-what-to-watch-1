@@ -7,4 +7,10 @@ export enum AppRoutes {
   PlayerRoot = '/player/'
 }
 
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
 
