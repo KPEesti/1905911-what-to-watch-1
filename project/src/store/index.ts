@@ -8,7 +8,7 @@ export const store = configureStore({
   reducer: reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      thunk : {
+      thunk: {
         extraArgument: api,
       }
     })
