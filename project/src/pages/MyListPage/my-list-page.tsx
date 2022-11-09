@@ -1,13 +1,12 @@
 import FilmsList from '../../components/FilmsList/films-list';
 import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
-import {FilmType} from '../../types/film-type';
+import {useSelector} from 'react-redux';
+import {StateType} from '../../types/state-type';
 
-type MyListProps = {
-  films: FilmType[]
-}
+export default function MyListPage() {
+  const films = useSelector((state: StateType) => state.films);
 
-export default function MyListPage({films}: MyListProps) {
   return (
     <div className="user-page">
       <Header/>

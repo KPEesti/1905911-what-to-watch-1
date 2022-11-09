@@ -6,14 +6,9 @@ import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
 import GenreTabs from '../../components/GenreTabs/genre-tabs';
 
-import {FilmType} from '../../types/film-type';
 import {StateType} from '../../types/state-type';
 
-type MainPageProps = {
-  filmPromo: FilmType;
-};
-
-export default function MainPage({filmPromo}: MainPageProps): JSX.Element {
+export default function MainPage(): JSX.Element {
   const navigate = useNavigate();
   const films = useSelector((state: StateType) => state.filmsByGenre);
 
@@ -22,8 +17,8 @@ export default function MainPage({filmPromo}: MainPageProps): JSX.Element {
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src={filmPromo.backgroundImage}
-            alt={filmPromo.name}
+            src={films[0].backgroundImage}
+            alt={films[0].name}
           />
         </div>
 
@@ -33,25 +28,25 @@ export default function MainPage({filmPromo}: MainPageProps): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={filmPromo.posterImage}
-                alt={filmPromo.name}
+                src={films[0].posterImage}
+                alt={films[0].name}
                 width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmPromo.name}</h2>
+              <h2 className="film-card__title">{films[0].name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmPromo.genre}</span>
-                <span className="film-card__year">{filmPromo.released}</span>
+                <span className="film-card__genre">{films[0].genre}</span>
+                <span className="film-card__year">{films[0].released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => navigate(`/player/${filmPromo.id}`)}
+                  onClick={() => navigate(`/player/${films[0].id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>

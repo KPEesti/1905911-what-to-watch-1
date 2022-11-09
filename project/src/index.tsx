@@ -1,24 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import {films} from './mocks/films';
-import {filmPromo} from './mocks/film-promo';
-import {reviews} from './mocks/reviews';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import {checkAuthAction, fetchFilmsAction, fetchPromoFilmAction} from './store/aip-actions';
+import {dispatch} from './types/state';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+dispatch(fetchFilmsAction());
+dispatch(fetchPromoFilmAction());
+// dispatch(checkAuthAction());
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        filmPromo={filmPromo}
-        films={films}
-        reviews={reviews}
-      />
+      <App/>
     </Provider>
   </React.StrictMode>
 );
