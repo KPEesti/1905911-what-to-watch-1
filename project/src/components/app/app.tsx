@@ -1,8 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-
-import {FilmType} from '../../types/film-type';
-import {ReviewType} from '../../types/review-type';
-import {AppRoutes} from '../../utils/consts';
+import {AppRoutes, AppStatus, AuthorizationStatus} from '../../utils/consts';
 
 import MainPage from '../../pages/MainPage/main-page';
 import LoginPage from '../../pages/LoginPage/login-page';
@@ -12,33 +9,34 @@ import ReviewPage from '../../pages/ReviewPage/review-page';
 import PlayerPage from '../../pages/PlayerPage/player-page';
 import NotFoundPage from '../../pages/NotFoundPage/not-found-page';
 import PrivateRoute from '../PrivateRoute/private-route';
+import Spinner from '../Spinner/spinner';
 
-import {useDispatch} from 'react-redux';
-import {setFilms} from '../../store/action';
-
-type AppProps = {
-  filmPromo: FilmType,
-  films: FilmType[],
-  reviews: ReviewType[]
-}
+import {useSelector} from 'react-redux';
+import {State} from '../../types/state';
 
 
-function App({filmPromo, films, reviews}: AppProps): JSX.Element {
-  const dispatch = useDispatch();
-  dispatch(setFilms(films));
+function App(): JSX.Element {
+  const {authorizationStatus: auth, appStatus} = useSelector((state: State) => state);
+
+  if (auth === AuthorizationStatus.Unknown || appStatus === AppStatus.Loading) {
+    return (
+      <Spinner/>
+    );
+  }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoutes.Root} element={<MainPage filmPromo={filmPromo}/>}/>
+        <Route path={AppRoutes.Root} element={<MainPage/>}/>
         <Route path={AppRoutes.Login} element={<LoginPage/>}/>
         <Route path={AppRoutes.MyList} element={
           <PrivateRoute>
-            <MyListPage films={films}/>
+            <MyListPage/>
           </PrivateRoute>
         }
         />
-        <Route path={`${AppRoutes.FilmsRoot}:id`} element={<MoviePage film={filmPromo} reviews={reviews} filmsLike={films}/>}/>
+        <Route path={`${AppRoutes.FilmsRoot}:id`}
+               element={<MoviePage/>}/>
         <Route path={`${AppRoutes.FilmsRoot}:id${AppRoutes.FilmsReview}`} element=
           {
             <PrivateRoute>
