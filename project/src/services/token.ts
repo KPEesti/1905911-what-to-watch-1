@@ -8,7 +8,7 @@ export const getToken = (): Token => {
 };
 
 export const setToken = (token: Token): void => {
-  localStorage.set(AUTH_TOKEN_KEY_NAME, token);
+  localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
 };
 
 export const dropToken = (): void => {

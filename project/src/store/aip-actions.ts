@@ -2,10 +2,10 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {AxiosInstance} from 'axios';
 import {FilmType} from '../types/film-type';
-import {APIRoutes, AuthorizationStatus} from '../utils/consts';
-import {requireAuthorization, setFilms} from './action';
+import {APIRoutes, AppStatus, AuthorizationStatus} from '../utils/consts';
+import {requireAuthorization, setAppStatus, setFilms, setPromoFilm} from './action';
 import {AuthData} from '../types/auth-data';
-import { UserData } from '../types/user-data';
+import {UserData} from '../types/user-data';
 import {dropToken, setToken} from '../services/token';
 
 
@@ -16,8 +16,24 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
 }>(
   'films/getFilms',
   async (_arg, {dispatch, extra: api}) => {
+    dispatch(setAppStatus(AppStatus.Loading));
     const {data} = await api.get<FilmType[]>(APIRoutes.Films);
     dispatch(setFilms(data));
+    dispatch(setAppStatus(AppStatus.Ok));
+  }
+)
+
+export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/getPromoFilm',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(setAppStatus(AppStatus.Loading));
+    const {data} = await api.get<FilmType>(APIRoutes.PromoFilm);
+    dispatch(setPromoFilm(data));
+    dispatch(setAppStatus(AppStatus.Ok));
   }
 )
 
@@ -29,10 +45,11 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
+      dispatch(setAppStatus(AppStatus.Loading));
       await api.get(APIRoutes.Login)
       dispatch(requireAuthorization(AuthorizationStatus.Auth))
-    }
-    catch (e) {
+      dispatch(setAppStatus(AppStatus.Ok));
+    } catch (e) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth))
     }
   }

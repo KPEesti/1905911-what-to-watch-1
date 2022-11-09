@@ -10,17 +10,18 @@ export const createApi = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT
   });
 
-  api.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
-      const token = getToken();
-
-      if (token) {
-        config.headers['x-token'] = token;
-      }
-
-      return config;
-    }
-  );
+  // api.interceptors.request.use(
+  //   (config: AxiosRequestConfig) => {
+  //     const token = getToken();
+  //
+  //     if (token) {
+  //       // config.headers['x-token'] = token;
+  //       config.headers['x-token'] = 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=';
+  //     }
+  //
+  //     return config;
+  //   }
+  // );
 
   return api;
 }

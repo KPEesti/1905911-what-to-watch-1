@@ -1,14 +1,25 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {FilmType} from '../types/film-type';
 import {StateType} from '../types/state-type';
-import {changeGenre, getFilmsByGenre, requireAuthorization, setFilms} from './action';
-import {AuthorizationStatus} from '../utils/consts';
+import {
+  changeGenre,
+  getFilmsByGenre,
+  requireAuthorization,
+  setAppStatus,
+  setError,
+  setFilms,
+  setPromoFilm
+} from './action';
+import {AppStatus, AuthorizationStatus} from '../utils/consts';
 
 const initialState: StateType = {
   selectedGenre: 'All genres',
   filmsByGenre: new Array<FilmType>(),
   films: new Array<FilmType>(),
-  authorizationStatus: AuthorizationStatus.Unknown,
+  promoFilm: null,
+  authorizationStatus: AuthorizationStatus.Auth,
+  error: null,
+  appStatus: AppStatus.Ok,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -23,7 +34,16 @@ export const reducer = createReducer(initialState, (builder) => {
       state.films = action.payload;
       state.filmsByGenre = action.payload;
     })
+    .addCase(setPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setAppStatus, (state, action) => {
+      state.appStatus = action.payload;
+    });
 });

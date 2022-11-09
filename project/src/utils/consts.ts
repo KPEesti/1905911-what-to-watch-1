@@ -15,8 +15,14 @@ export enum AuthorizationStatus {
 
 export enum APIRoutes {
   Films = '/films',
+  PromoFilm = '/promo',
   Login = '/login',
   Logout = '/logout'
+}
+
+export enum AppStatus {
+  Loading,
+  Ok,
 }
 
 
