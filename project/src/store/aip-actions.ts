@@ -21,7 +21,7 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     dispatch(setFilms(data));
     dispatch(setAppStatus(AppStatus.Ok));
   }
-)
+);
 
 export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -35,7 +35,7 @@ export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
     dispatch(setPromoFilm(data));
     dispatch(setAppStatus(AppStatus.Ok));
   }
-)
+);
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -46,14 +46,14 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     try {
       dispatch(setAppStatus(AppStatus.Loading));
-      await api.get(APIRoutes.Login)
-      dispatch(requireAuthorization(AuthorizationStatus.Auth))
+      await api.get(APIRoutes.Login);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(setAppStatus(AppStatus.Ok));
     } catch (e) {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth))
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   }
-)
+);
 
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch,
@@ -61,7 +61,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
+  async ({email, password}, {dispatch, extra: api}) => {
     const {data: {token}} = await api.post<UserData>(APIRoutes.Login, {email, password});
     setToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
