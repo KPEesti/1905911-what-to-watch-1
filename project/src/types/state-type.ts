@@ -1,5 +1,5 @@
 import {FilmType} from './film-type';
-import {AppStatus, AuthorizationStatus} from '../utils/consts';
+import {AppStatus, AuthorizationStatus} from '../utils/const';
 
 export type StateType = {
   selectedGenre: string;

@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {FilmType} from '../types/film-type';
-import {AppStatus, AuthorizationStatus} from '../utils/consts';
+import {AppStatus, AuthorizationStatus} from '../utils/const';
 
 export const changeGenre = createAction<string>('genre/changeGenre');
 export const getFilmsByGenre = createAction('films/getByGenre');

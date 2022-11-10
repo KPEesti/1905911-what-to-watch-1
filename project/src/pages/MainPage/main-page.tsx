@@ -7,6 +7,7 @@ import Header from '../../components/Header/header';
 import GenreTabs from '../../components/GenreTabs/genre-tabs';
 
 import {StateType} from '../../types/state-type';
+import {AppRoutes} from '../../utils/const';
 
 export default function MainPage(): JSX.Element {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ export default function MainPage(): JSX.Element {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => navigate(`/player/${promoFilm.id}`)}
+                  onClick={() => navigate(AppRoutes.PlayerRoot + promoFilm.id)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -56,7 +57,7 @@ export default function MainPage(): JSX.Element {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
-                  onClick={() => navigate('/myList')}
+                  onClick={() => navigate(AppRoutes.MyList)}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>

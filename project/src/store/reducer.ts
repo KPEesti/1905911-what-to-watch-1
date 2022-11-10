@@ -10,7 +10,7 @@ import {
   setFilms,
   setPromoFilm
 } from './action';
-import {AppStatus, AuthorizationStatus} from '../utils/consts';
+import {AppStatus, AuthorizationStatus} from '../utils/const';
 
 const initialState: StateType = {
   selectedGenre: 'All genres',

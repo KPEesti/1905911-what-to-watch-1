@@ -1,5 +1,8 @@
 import {Link} from 'react-router-dom';
 import ReviewForm from '../../components/ReviewForm/review-form';
+import {AppRoutes} from '../../utils/const';
+import {dispatch} from '../../types/state';
+import {logoutAction} from '../../store/aip-actions';
 
 export default function ReviewPage() {
   return (
@@ -16,7 +19,7 @@ export default function ReviewPage() {
 
         <header className="page-header">
           <div className="logo">
-            <Link to={'/'} className="logo__link">
+            <Link to={AppRoutes.Root} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -48,7 +51,7 @@ export default function ReviewPage() {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a className="user-block__link" onClick={() => dispatch(logoutAction())}>Sign out</a>
             </li>
           </ul>
         </header>

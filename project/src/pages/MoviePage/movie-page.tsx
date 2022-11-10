@@ -5,6 +5,7 @@ import Header from '../../components/Header/header';
 import Tabs from '../../components/Tabs/tabs';
 import {useSelector} from 'react-redux';
 import {StateType} from '../../types/state-type';
+import {AppRoutes} from '../../utils/const';
 
 export default function MoviePage() {
   const navigate = useNavigate();
@@ -90,7 +91,7 @@ export default function MoviePage() {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => navigate(`/player/${params.id}`)}
+                  onClick={() => navigate(AppRoutes.PlayerRoot + params.id)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -100,7 +101,7 @@ export default function MoviePage() {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
-                  onClick={() => navigate('/myList')}
+                  onClick={() => navigate(AppRoutes.MyList)}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -108,7 +109,7 @@ export default function MoviePage() {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${params.id}/review`} className="btn film-card__button">
+                <Link to={AppRoutes.FilmsRoot + params.id + AppRoutes.FilmsReview} className="btn film-card__button">
                   Add review
                 </Link>
               </div>
