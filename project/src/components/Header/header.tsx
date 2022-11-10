@@ -1,10 +1,14 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/store-hooks';
 import {AuthorizationStatus} from '../../utils/consts';
+import {dispatch} from '../../types/state';
+import { logoutAction } from '../../store/aip-actions';
 
 
 export default function Header() {
   const {authorizationStatus} = useAppSelector((state) => state);
+
+  const navigate = useNavigate();
 
   return (
     <header className="page-header film-card__head">
@@ -21,7 +25,7 @@ export default function Header() {
           ?
           <ul className="user-block">
             <li className="user-block__item">
-              <div className="user-block__avatar">
+              <div className="user-block__avatar" onClick={() => navigate('/myList')}>
                 <img
                   src="img/avatar.jpg"
                   alt="User avatar"
@@ -31,7 +35,7 @@ export default function Header() {
               </div>
             </li>
             <li className="user-block__item">
-              <Link className="user-block__link" to={'/login'}>Sign out</Link>
+              <Link className="user-block__link" to={'/login'} onClick={() => dispatch(logoutAction())}>Sign out</Link>
             </li>
           </ul>
           :
