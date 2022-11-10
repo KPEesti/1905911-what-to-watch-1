@@ -36,7 +36,8 @@ function App(): JSX.Element {
         }
         />
         <Route path={`${AppRoutes.FilmsRoot}:id`}
-               element={<MoviePage/>}/>
+          element={<MoviePage/>}
+        />
         <Route path={`${AppRoutes.FilmsRoot}:id${AppRoutes.FilmsReview}`} element=
           {
             <PrivateRoute>

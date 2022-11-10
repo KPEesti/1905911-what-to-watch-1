@@ -12,58 +12,58 @@ export default function MoviePage() {
 
   const films = useSelector((state: StateType) => state.films);
 
-  let reviews = [
+  const reviews = [
     {
-      "id": 1,
-      "user": {
-        "id": 1,
-        "name": "Oliver.conner"
+      'id': 1,
+      'user': {
+        'id': 1,
+        'name': 'Oliver.conner'
       },
-      "rating": 8,
-      "comment": "Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.",
-      "date": "2022-11-02T12:46:13.712Z"
+      'rating': 8,
+      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
+      'date': '2022-11-02T12:46:13.712Z'
     },
     {
-      "id": 2,
-      "user": {
-        "id": 1,
-        "name": "Oliver.conner"
+      'id': 2,
+      'user': {
+        'id': 1,
+        'name': 'Oliver.conner'
       },
-      "rating": 8,
-      "comment": "Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.",
-      "date": "2022-11-02T12:49:35.039Z"
+      'rating': 8,
+      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
+      'date': '2022-11-02T12:49:35.039Z'
     },
     {
-      "id": 3,
-      "user": {
-        "id": 1,
-        "name": "Oliver.conner"
+      'id': 3,
+      'user': {
+        'id': 1,
+        'name': 'Oliver.conner'
       },
-      "rating": 8,
-      "comment": "Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.",
-      "date": "2022-11-02T12:49:38.560Z"
+      'rating': 8,
+      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
+      'date': '2022-11-02T12:49:38.560Z'
     },
     {
-      "id": 4,
-      "user": {
-        "id": 1,
-        "name": "Oliver.conner"
+      'id': 4,
+      'user': {
+        'id': 1,
+        'name': 'Oliver.conner'
       },
-      "rating": 8,
-      "comment": "Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.",
-      "date": "2022-11-02T12:49:39.309Z"
+      'rating': 8,
+      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
+      'date': '2022-11-02T12:49:39.309Z'
     },
     {
-      "id": 5,
-      "user": {
-        "id": 1,
-        "name": "Oliver.conner"
+      'id': 5,
+      'user': {
+        'id': 1,
+        'name': 'Oliver.conner'
       },
-      "rating": 8,
-      "comment": "Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.",
-      "date": "2022-11-02T12:50:06.980Z"
+      'rating': 8,
+      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
+      'date': '2022-11-02T12:50:06.980Z'
     }
-  ]
+  ];
 
   return (
     <>

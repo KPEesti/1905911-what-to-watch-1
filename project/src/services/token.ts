@@ -3,7 +3,7 @@ const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 export type Token = string;
 
 export const getToken = (): Token => {
-  const token = localStorage.get(AUTH_TOKEN_KEY_NAME);
+  const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
   return token ?? '';
 };
 

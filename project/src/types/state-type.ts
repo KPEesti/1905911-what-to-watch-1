@@ -5,7 +5,7 @@ export type StateType = {
   selectedGenre: string;
   filmsByGenre: FilmType[];
   films: FilmType[];
-  promoFilm: FilmType | null;
+  promoFilm: FilmType;
   error: string | null;
   authorizationStatus: AuthorizationStatus;
   appStatus: AppStatus;

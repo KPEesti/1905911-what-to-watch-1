@@ -10,15 +10,15 @@ import {StateType} from '../../types/state-type';
 
 export default function MainPage(): JSX.Element {
   const navigate = useNavigate();
-  const films = useSelector((state: StateType) => state.filmsByGenre);
+  const {filmsByGenre, promoFilm} = useSelector((state: StateType) => state);
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src={films[0].backgroundImage}
-            alt={films[0].name}
+            src={promoFilm.backgroundImage}
+            alt={promoFilm.name}
           />
         </div>
 
@@ -28,25 +28,25 @@ export default function MainPage(): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={films[0].posterImage}
-                alt={films[0].name}
+                src={promoFilm.posterImage}
+                alt={promoFilm.name}
                 width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{films[0].name}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{films[0].genre}</span>
-                <span className="film-card__year">{films[0].released}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => navigate(`/player/${films[0].id}`)}
+                  onClick={() => navigate(`/player/${promoFilm.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -76,7 +76,7 @@ export default function MainPage(): JSX.Element {
 
           <GenreTabs/>
 
-          <FilmsList films={films}/>
+          <FilmsList films={filmsByGenre}/>
 
         </section>
 

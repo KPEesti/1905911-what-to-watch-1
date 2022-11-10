@@ -9,9 +9,9 @@ import {dispatch} from './types/state';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+dispatch(checkAuthAction());
 dispatch(fetchFilmsAction());
 dispatch(fetchPromoFilmAction());
-// dispatch(checkAuthAction());
 
 root.render(
   <React.StrictMode>
