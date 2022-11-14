@@ -4,7 +4,8 @@ export enum AppRoutes {
   MyList = '/myList',
   FilmsRoot = '/films/',
   FilmsReview = '/review',
-  PlayerRoot = '/player/'
+  PlayerRoot = '/player/',
+  NotFoundPage = '/pageNotFound',
 }
 
 export enum AuthorizationStatus {
@@ -16,8 +17,10 @@ export enum AuthorizationStatus {
 export enum APIRoutes {
   Films = '/films',
   PromoFilm = '/promo',
+  Similar = '/similar',
+  Reviews = '/comments/',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
 }
 
 export enum AppStatus {

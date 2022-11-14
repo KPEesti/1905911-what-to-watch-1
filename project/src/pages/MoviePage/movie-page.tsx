@@ -3,77 +3,57 @@ import FilmsList from '../../components/FilmsList/films-list';
 import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
 import Tabs from '../../components/Tabs/tabs';
-import {useSelector} from 'react-redux';
-import {StateType} from '../../types/state-type';
 import {AppRoutes} from '../../utils/const';
+import {useEffect, useState} from 'react';
+import {dispatch} from '../../types/state';
+import {useAppSelector} from '../../hooks/store-hooks';
+import {fetchFilmByIDAction, fetchSimilarFilmsAction, getFullFilmInfoAction} from '../../store/aip-actions';
+import Spinner from '../../components/Spinner/spinner';
+import NotFoundPage from '../NotFoundPage/not-found-page';
+import {setFilmByID, setReviews, setSameFilms} from '../../store/action';
 
 export default function MoviePage() {
+  const id = Number(useParams().id);
+  const film = useAppSelector((state) => state.filmByID);
+  const similarFilms = useAppSelector((state) => state.sameFilms);
+  const reviews = useAppSelector((state) => state.reviews);
   const navigate = useNavigate();
-  const params = useParams();
 
-  const films = useSelector((state: StateType) => state.films);
+  const [loading, setLoading] = useState(true);
 
-  const reviews = [
-    {
-      'id': 1,
-      'user': {
-        'id': 1,
-        'name': 'Oliver.conner'
-      },
-      'rating': 8,
-      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-      'date': '2022-11-02T12:46:13.712Z'
-    },
-    {
-      'id': 2,
-      'user': {
-        'id': 1,
-        'name': 'Oliver.conner'
-      },
-      'rating': 8,
-      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-      'date': '2022-11-02T12:49:35.039Z'
-    },
-    {
-      'id': 3,
-      'user': {
-        'id': 1,
-        'name': 'Oliver.conner'
-      },
-      'rating': 8,
-      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-      'date': '2022-11-02T12:49:38.560Z'
-    },
-    {
-      'id': 4,
-      'user': {
-        'id': 1,
-        'name': 'Oliver.conner'
-      },
-      'rating': 8,
-      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-      'date': '2022-11-02T12:49:39.309Z'
-    },
-    {
-      'id': 5,
-      'user': {
-        'id': 1,
-        'name': 'Oliver.conner'
-      },
-      'rating': 8,
-      'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-      'date': '2022-11-02T12:50:06.980Z'
-    }
-  ];
+  useEffect(
+    () => {
+      let mounted = true;
+
+      if(mounted) {
+        dispatch(getFullFilmInfoAction(id)).then(() => setLoading(false));
+      }
+
+      return () => {
+        mounted = false;
+        dispatch(setFilmByID(null));
+        dispatch(setSameFilms([]));
+        dispatch(setReviews([]));
+      };
+    }, [id]
+  )
+
+  if (loading) {
+    return <Spinner/>;
+  }
+
+  if (!film) {
+    return <NotFoundPage/>;
+  }
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{background: `${film?.backgroundColor}`}}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src={films[0].backgroundImage}
-              alt={films[0].name}
+              src={film?.backgroundImage}
+              alt={film?.name}
             />
           </div>
 
@@ -81,17 +61,17 @@ export default function MoviePage() {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{films[0].name}</h2>
+              <h2 className="film-card__title">{film?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{films[0].genre}</span>
-                <span className="film-card__year">{films[0].released}</span>
+                <span className="film-card__genre">{film?.genre}</span>
+                <span className="film-card__year">{film?.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => navigate(AppRoutes.PlayerRoot + params.id)}
+                  onClick={() => navigate(AppRoutes.PlayerRoot + id)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -109,7 +89,7 @@ export default function MoviePage() {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={AppRoutes.FilmsRoot + params.id + AppRoutes.FilmsReview} className="btn film-card__button">
+                <Link to={AppRoutes.FilmsRoot + id + AppRoutes.FilmsReview} className="btn film-card__button">
                   Add review
                 </Link>
               </div>
@@ -121,14 +101,14 @@ export default function MoviePage() {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src={films[0].posterImage}
-                alt={films[0].name}
+                src={film?.posterImage}
+                alt={film?.name}
                 width="218"
                 height="327"
               />
             </div>
 
-            <Tabs film={films[0]} reviews={reviews}/>
+            <Tabs film={film} reviews={reviews}/>
 
           </div>
         </div>
@@ -138,7 +118,7 @@ export default function MoviePage() {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films} count={4} showMoreButton={false}/>
+          <FilmsList films={similarFilms} count={4} showMoreButton={false}/>
         </section>
 
         <Footer/>

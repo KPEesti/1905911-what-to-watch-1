@@ -46,6 +46,7 @@ function App(): JSX.Element {
           }
         />
         <Route path={`${AppRoutes.PlayerRoot}:id`} element={<PlayerPage/>}/>
+        <Route path={'/pageNotFound'} element={<NotFoundPage/>}/>
         <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>
     </BrowserRouter>

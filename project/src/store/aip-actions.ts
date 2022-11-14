@@ -2,11 +2,20 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {AxiosInstance} from 'axios';
 import {FilmType} from '../types/film-type';
-import {APIRoutes, AppStatus, AuthorizationStatus} from '../utils/const';
-import {requireAuthorization, setAppStatus, setFilms, setPromoFilm} from './action';
+import {APIRoutes, AppRoutes, AppStatus, AuthorizationStatus} from '../utils/const';
+import {
+  redirectToRoute,
+  requireAuthorization,
+  setAppStatus,
+  setFilmByID,
+  setFilms,
+  setPromoFilm, setReviews,
+  setSameFilms
+} from './action';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {dropToken, setToken} from '../services/token';
+import {ReviewType} from '../types/review-type';
 
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
@@ -20,6 +29,60 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<FilmType[]>(APIRoutes.Films);
     dispatch(setFilms(data));
     dispatch(setAppStatus(AppStatus.Ok));
+  }
+);
+
+export const getFullFilmInfoAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/getFullFilmInfo',
+  async (userID, {dispatch, extra: api}) => {
+    dispatch(fetchFilmByIDAction(userID));
+    dispatch(fetchSimilarFilmsAction(userID));
+    dispatch(fetchReviewsAction(userID));
+  }
+)
+
+export const fetchFilmByIDAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/getFilmByID',
+  async (userId, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<FilmType>(APIRoutes.Films + '/' + userId);
+      dispatch(setFilmByID(data));
+    }
+    catch (e) {
+      dispatch(redirectToRoute(AppRoutes.NotFoundPage));
+    }
+  }
+);
+
+export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/getSimilarFilms',
+  async (userId, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmType[]>(APIRoutes.Films + '/' + userId + APIRoutes.Similar);
+    dispatch(setSameFilms(data));
+  }
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/getReviews',
+  async (userId, {dispatch, extra: api}) => {
+    const {data} = await api.get<ReviewType[]>(APIRoutes.Reviews + userId);
+    dispatch(setReviews(data));
   }
 );
 

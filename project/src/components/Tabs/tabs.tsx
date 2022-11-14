@@ -4,7 +4,7 @@ import {ReviewType} from '../../types/review-type';
 import ReviewCard from '../ReviewCard/review-card';
 
 type TabsProps = {
-  film: FilmType;
+  film: FilmType | null;
   reviews: ReviewType[];
 }
 
@@ -87,25 +87,25 @@ export default function Tabs({film, reviews}: TabsProps) {
       {activeTab === 1 &&
       <>
         <div className="film-rating">
-          <div className="film-rating__score">{film.rating}</div>
+          <div className="film-rating__score">{film?.rating}</div>
           <p className="film-rating__meta">
-            <span className="film-rating__level">{convertRatingToString(film.rating)}</span>
-            <span className="film-rating__count">{film.scoresCount} ratings</span>
+            <span className="film-rating__level">{convertRatingToString(film?.rating)}</span>
+            <span className="film-rating__count">{film?.scoresCount} ratings</span>
           </p>
         </div>
 
         <div className="film-card__text">
           <p>
-            {film.description}
+            {film?.description}
           </p>
 
           <p className="film-card__director">
-            <strong>Director: {film.director}</strong>
+            <strong>Director: {film?.director}</strong>
           </p>
 
           <p className="film-card__starring">
             <strong>
-              Starring: {film.starring.join(', ')} and other
+              Starring: {film?.starring.join(', ')} and other
             </strong>
           </p>
         </div>
@@ -117,11 +117,11 @@ export default function Tabs({film, reviews}: TabsProps) {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Director</strong>
-            <span className="film-card__details-value">{film.director}</span>
+            <span className="film-card__details-value">{film?.director}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Starring</strong>
-            <span className="film-card__details-value"> {film.starring.map((item) => (
+            <span className="film-card__details-value"> {film?.starring.map((item) => (
               <>
                 {item}, <br/>
               </>
@@ -133,15 +133,15 @@ export default function Tabs({film, reviews}: TabsProps) {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Run Time</strong>
-            <span className="film-card__details-value">{convertRunTimeToString(film.runTime)}</span>
+            <span className="film-card__details-value">{convertRunTimeToString(film?.runTime)}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Genre</strong>
-            <span className="film-card__details-value">{film.genre}</span>
+            <span className="film-card__details-value">{film?.genre}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Released</strong>
-            <span className="film-card__details-value">{film.released}</span>
+            <span className="film-card__details-value">{film?.released}</span>
           </p>
         </div>
       </div>}
