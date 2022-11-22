@@ -3,21 +3,22 @@ import FilmsList from '../../components/FilmsList/films-list';
 import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
 import Tabs from '../../components/Tabs/tabs';
-import {AppRoutes} from '../../utils/const';
+import {AppRoutes, AuthorizationStatus} from '../../utils/const';
 import {useEffect, useState} from 'react';
 import {dispatch} from '../../types/state';
 import {useAppSelector} from '../../hooks/store-hooks';
-import {fetchFilmByIDAction, fetchSimilarFilmsAction, getFullFilmInfoAction} from '../../store/aip-actions';
+import {getFullFilmInfoAction} from '../../store/aip-actions';
 import Spinner from '../../components/Spinner/spinner';
-import NotFoundPage from '../NotFoundPage/not-found-page';
 import {setFilmByID, setReviews, setSameFilms} from '../../store/action';
 
 export default function MoviePage() {
   const id = Number(useParams().id);
+  const navigate = useNavigate();
+
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const film = useAppSelector((state) => state.filmByID);
   const similarFilms = useAppSelector((state) => state.sameFilms);
   const reviews = useAppSelector((state) => state.reviews);
-  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +26,7 @@ export default function MoviePage() {
     () => {
       let mounted = true;
 
-      if(mounted) {
+      if (mounted) {
         dispatch(getFullFilmInfoAction(id)).then(() => setLoading(false));
       }
 
@@ -36,14 +37,10 @@ export default function MoviePage() {
         dispatch(setReviews([]));
       };
     }, [id]
-  )
+  );
 
   if (loading) {
     return <Spinner/>;
-  }
-
-  if (!film) {
-    return <NotFoundPage/>;
   }
 
   return (
@@ -89,9 +86,12 @@ export default function MoviePage() {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={AppRoutes.FilmsRoot + id + AppRoutes.FilmsReview} className="btn film-card__button">
-                  Add review
-                </Link>
+                {
+                  authStatus === AuthorizationStatus.Auth &&
+                  <Link to={AppRoutes.FilmsRoot + id + AppRoutes.FilmsReview} className="btn film-card__button">
+                    Add review
+                  </Link>
+                }
               </div>
             </div>
           </div>

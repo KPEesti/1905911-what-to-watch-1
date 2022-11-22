@@ -9,7 +9,8 @@ import {
   setAppStatus,
   setFilmByID,
   setFilms,
-  setPromoFilm, setReviews,
+  setPromoFilm,
+  setReviews,
   setSameFilms
 } from './action';
 import {AuthData} from '../types/auth-data';
@@ -39,11 +40,11 @@ export const getFullFilmInfoAction = createAsyncThunk<void, number, {
 }>(
   'films/getFullFilmInfo',
   async (userID, {dispatch, extra: api}) => {
-    dispatch(fetchFilmByIDAction(userID));
-    dispatch(fetchSimilarFilmsAction(userID));
-    dispatch(fetchReviewsAction(userID));
+    await dispatch(fetchFilmByIDAction(userID));
+    await dispatch(fetchSimilarFilmsAction(userID));
+    await dispatch(fetchReviewsAction(userID));
   }
-)
+);
 
 export const fetchFilmByIDAction = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
@@ -53,7 +54,7 @@ export const fetchFilmByIDAction = createAsyncThunk<void, number, {
   'films/getFilmByID',
   async (userId, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<FilmType>(APIRoutes.Films + '/' + userId);
+      const {data} = await api.get<FilmType>(`${APIRoutes.Films }/${ userId}`);
       dispatch(setFilmByID(data));
     }
     catch (e) {
@@ -69,7 +70,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
 }>(
   'films/getSimilarFilms',
   async (userId, {dispatch, extra: api}) => {
-    const {data} = await api.get<FilmType[]>(APIRoutes.Films + '/' + userId + APIRoutes.Similar);
+    const {data} = await api.get<FilmType[]>(`${APIRoutes.Films }/${ userId }${APIRoutes.Similar}`);
     dispatch(setSameFilms(data));
   }
 );
@@ -80,9 +81,23 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
   extra: AxiosInstance
 }>(
   'films/getReviews',
-  async (userId, {dispatch, extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(APIRoutes.Reviews + userId);
+  async (filmID, {dispatch, extra: api}) => {
+    const {data} = await api.get<ReviewType[]>(APIRoutes.Reviews + filmID);
     dispatch(setReviews(data));
+  }
+);
+
+export const postReviewAction = createAsyncThunk<void, {filmID: number, review: {rating: number, comment: string }}, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'review/postReview',
+  async ({filmID, review}, {dispatch, extra: api}) => {
+    dispatch(setAppStatus(AppStatus.Loading));
+    await api.post(APIRoutes.Reviews + filmID, review);
+    dispatch(redirectToRoute(AppRoutes.FilmsRoot + filmID));
+    dispatch(setAppStatus(AppStatus.Ok));
   }
 );
 
