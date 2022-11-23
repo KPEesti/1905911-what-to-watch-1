@@ -2,11 +2,12 @@ import {Link, useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/store-hooks';
 import {AppRoutes, AuthorizationStatus} from '../../utils/const';
 import {dispatch} from '../../types/state';
-import { logoutAction } from '../../store/aip-actions';
+import {logoutAction} from '../../store/api-actions';
+import {getAuthStatus} from '../../store/Slices/User-Process/selectors';
 
 
 export default function Header() {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthStatus);
 
   const navigate = useNavigate();
 
@@ -35,7 +36,9 @@ export default function Header() {
               </div>
             </li>
             <li className="user-block__item">
-              <Link className="user-block__link" to={AppRoutes.Login} onClick={() => dispatch(logoutAction())}>Sign out</Link>
+              <Link className="user-block__link" to={AppRoutes.Login} onClick={() => dispatch(logoutAction())}>Sign
+                out
+              </Link>
             </li>
           </ul>
           :

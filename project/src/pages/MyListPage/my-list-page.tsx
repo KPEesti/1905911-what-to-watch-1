@@ -1,11 +1,11 @@
 import FilmsList from '../../components/FilmsList/films-list';
 import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
-import {useSelector} from 'react-redux';
-import {StateType} from '../../types/state-type';
+import {useAppSelector} from '../../hooks/store-hooks';
+import {getFilms} from '../../store/Slices/Films-Process/selectors';
 
 export default function MyListPage() {
-  const films = useSelector((state: StateType) => state.films);
+  const films = useAppSelector(getFilms);
 
   return (
     <div className="user-page">

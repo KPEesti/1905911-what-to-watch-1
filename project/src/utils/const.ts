@@ -8,12 +8,6 @@ export enum AppRoutes {
   NotFoundPage = '/pageNotFound',
 }
 
-export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
-}
-
 export enum APIRoutes {
   Films = '/films',
   PromoFilm = '/promo',
@@ -21,6 +15,19 @@ export enum APIRoutes {
   Reviews = '/comments/',
   Login = '/login',
   Logout = '/logout',
+}
+
+export enum NameSpace {
+  User = 'USER',
+  App = 'APP',
+  Films = 'FILMS',
+  Film = 'FILM',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }
 
 export enum AppStatus {

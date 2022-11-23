@@ -1,6 +1,6 @@
 import {FormEvent, useState} from 'react';
 import {dispatch} from '../../types/state';
-import {postReviewAction} from '../../store/aip-actions';
+import {postReviewAction} from '../../store/api-actions';
 import {useParams} from 'react-router-dom';
 
 export default function ReviewForm() {
