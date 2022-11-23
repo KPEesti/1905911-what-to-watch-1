@@ -3,11 +3,13 @@ import {useDispatch} from 'react-redux';
 import {locateGenre} from '../../utils/film-manager';
 import {changeGenre} from '../../store/Slices/Films-Process/films-process';
 import {useAppSelector} from '../../hooks/store-hooks';
-import {getFilms, getGenre} from '../../store/Slices/Films-Process/selectors';
+import {filterFilms, getFilms, getGenre} from '../../store/Slices/Films-Process/selectors';
+import FilmsList from '../FilmsList/films-list';
 
 
-export default function GenreTabs() {
+export default function Catalog() {
   const [activeTab, setActiveTab] = useState<string>(useAppSelector(getGenre));
+  const filmsByGenre = useAppSelector(filterFilms);
 
   const tabs = locateGenre(useAppSelector(getFilms));
   const tabsArr: string[] = [];
@@ -27,16 +29,23 @@ export default function GenreTabs() {
   const setActiveStyle = (tab: string) => tab === activeTab ? 'catalog__genres-item--active' : '';
 
   return (
-    <ul className="catalog__genres-list">
-      {
-        tabsArr.map((tab) => (
-          <li key={tab} className={`catalog__genres-item ${setActiveStyle(tab)}`}>
-            <a href="#" className="catalog__genres-link" onClick={(e) => handleClick(e, tab)}>
-              {tab}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <section className="catalog">
+      <h2 className="catalog__title visually-hidden">Catalog</h2>
+
+      <ul className="catalog__genres-list">
+        {
+          tabsArr.map((tab) => (
+            <li key={tab} className={`catalog__genres-item ${setActiveStyle(tab)}`}>
+              <a href="#" className="catalog__genres-link" onClick={(e) => handleClick(e, tab)}>
+                {tab}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <FilmsList films={filmsByGenre}/>
+
+    </section>
   );
 }
