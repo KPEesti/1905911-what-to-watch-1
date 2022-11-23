@@ -14,7 +14,11 @@ export default function Tabs({film, reviews}: TabsProps) {
   const detailsRef = useRef<HTMLLIElement | null>(null);
   const reviewRef = useRef<HTMLLIElement | null>(null);
 
-  const convertRatingToString = (rating: number) => {
+  const convertRatingToString = (rating: number | undefined) => {
+    if (rating === undefined) {
+      return 'Bad';
+    }
+
     if (rating >= 0 && rating < 3) {
       return 'Bad';
     } else if (rating >= 3 && rating < 5) {
@@ -28,7 +32,12 @@ export default function Tabs({film, reviews}: TabsProps) {
     }
   };
 
-  const convertRunTimeToString = (minutes: number) => `${(minutes / 60) | 0} h ${minutes % 60} m`;
+  const convertRunTimeToString = (minutes: number | undefined) => {
+    if(minutes !== undefined) {
+      return `${(minutes / 60) | 0} h ${minutes % 60} m`;
+    }
+    return '0 h';
+  };
 
   useEffect(() => {
     if (activeTab === 1) {

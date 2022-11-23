@@ -39,10 +39,10 @@ export const getFullFilmInfoAction = createAsyncThunk<void, number, {
   extra: AxiosInstance
 }>(
   'films/getFullFilmInfo',
-  async (userID, {dispatch, extra: api}) => {
-    await dispatch(fetchFilmByIDAction(userID));
-    await dispatch(fetchSimilarFilmsAction(userID));
-    await dispatch(fetchReviewsAction(userID));
+  async (filmID, {dispatch, extra: api}) => {
+    await dispatch(fetchFilmByIDAction(filmID));
+    await dispatch(fetchSimilarFilmsAction(filmID));
+    await dispatch(fetchReviewsAction(filmID));
   }
 );
 
@@ -52,12 +52,11 @@ export const fetchFilmByIDAction = createAsyncThunk<void, number, {
   extra: AxiosInstance
 }>(
   'films/getFilmByID',
-  async (userId, {dispatch, extra: api}) => {
+  async (ID, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<FilmType>(`${APIRoutes.Films }/${ userId}`);
+      const {data} = await api.get<FilmType>(`${APIRoutes.Films}/${ID}`);
       dispatch(setFilmByID(data));
-    }
-    catch (e) {
+    } catch (e) {
       dispatch(redirectToRoute(AppRoutes.NotFoundPage));
     }
   }
@@ -69,8 +68,8 @@ export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
   extra: AxiosInstance
 }>(
   'films/getSimilarFilms',
-  async (userId, {dispatch, extra: api}) => {
-    const {data} = await api.get<FilmType[]>(`${APIRoutes.Films }/${ userId }${APIRoutes.Similar}`);
+  async (filmID, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmType[]>(`${APIRoutes.Films}/${filmID}${APIRoutes.Similar}`);
     dispatch(setSameFilms(data));
   }
 );
@@ -82,12 +81,18 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
 }>(
   'films/getReviews',
   async (filmID, {dispatch, extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(APIRoutes.Reviews + filmID);
-    dispatch(setReviews(data));
+    try {
+      const {data} = await api.get<ReviewType[]>(APIRoutes.Reviews + filmID);
+      dispatch(setReviews(data));
+    } catch (e) {
+      setAppStatus(AppStatus.Loading);
+      dispatch(redirectToRoute(AppRoutes.NotFoundPage));
+      setAppStatus(AppStatus.Ok);
+    }
   }
 );
 
-export const postReviewAction = createAsyncThunk<void, {filmID: number, review: {rating: number, comment: string }}, {
+export const postReviewAction = createAsyncThunk<void, { filmID: number, review: { rating: number, comment: string } }, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
