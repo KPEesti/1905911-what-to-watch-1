@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {changeGenre, getFilmsByGenre} from '../../store/action';
-import {StateType} from '../../types/state-type';
+import {useDispatch} from 'react-redux';
 import {locateGenre} from '../../utils/film-manager';
+import {changeGenre} from '../../store/Slices/Films-Process/films-process';
+import {useAppSelector} from '../../hooks/store-hooks';
+import {getFilms, getGenre} from '../../store/Slices/Films-Process/selectors';
 
 
 export default function GenreTabs() {
-  const [activeTab, setActiveTab] = useState<string>(useSelector((state: StateType) => state.selectedGenre));
+  const [activeTab, setActiveTab] = useState<string>(useAppSelector(getGenre));
 
-  const tabs = locateGenre(useSelector((state: StateType) => state.films));
+  const tabs = locateGenre(useAppSelector(getFilms));
   const tabsArr: string[] = [];
 
   tabs.forEach((tab) => {
@@ -20,7 +21,6 @@ export default function GenreTabs() {
   const handleClick = (evt: React.MouseEvent, tabName: string) => {
     evt.preventDefault();
     dispatch(changeGenre(tabName));
-    dispatch(getFilmsByGenre());
     setActiveTab(tabName);
   };
 

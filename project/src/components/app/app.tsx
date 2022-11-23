@@ -11,14 +11,16 @@ import NotFoundPage from '../../pages/NotFoundPage/not-found-page';
 import PrivateRoute from '../PrivateRoute/private-route';
 import Spinner from '../Spinner/spinner';
 
-import {useSelector} from 'react-redux';
-import {State} from '../../types/state';
+import {useAppSelector} from '../../hooks/store-hooks';
+import {getAuthStatus} from '../../store/Slices/User-Process/selectors';
+import {getAppStatus} from '../../store/Slices/App-Process/selectors';
 
 
 function App(): JSX.Element {
-  const {authorizationStatus: auth, appStatus} = useSelector((state: State) => state);
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const appStatus = useAppSelector(getAppStatus);
 
-  if (auth === AuthorizationStatus.Unknown || appStatus === AppStatus.Loading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || appStatus === AppStatus.Loading) {
     return (
       <Spinner/>
     );

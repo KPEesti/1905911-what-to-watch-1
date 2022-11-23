@@ -2,15 +2,16 @@ import {Link, useParams} from 'react-router-dom';
 import ReviewForm from '../../components/ReviewForm/review-form';
 import {AppRoutes} from '../../utils/const';
 import {dispatch} from '../../types/state';
-import {fetchFilmByIDAction, logoutAction} from '../../store/aip-actions';
+import {fetchFilmByIDAction, logoutAction} from '../../store/api-actions';
 import {useAppSelector} from '../../hooks/store-hooks';
 import {useEffect, useState} from 'react';
-import {setFilmByID} from '../../store/action';
 import Spinner from '../../components/Spinner/spinner';
+import {setFilmByID} from '../../store/Slices/Film-Process/film-process';
+import {getFilmByID} from '../../store/Slices/Film-Process/selectors';
 
 export default function ReviewPage() {
   const id = Number(useParams().id);
-  const film = useAppSelector((state) => state.filmByID);
+  const film = useAppSelector(getFilmByID);
   const [loading, setLoading] = useState(true);
 
   useEffect(

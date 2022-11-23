@@ -1,17 +1,16 @@
 import {useNavigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-
 import FilmsList from '../../components/FilmsList/films-list';
 import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
 import GenreTabs from '../../components/GenreTabs/genre-tabs';
-
-import {StateType} from '../../types/state-type';
 import {AppRoutes} from '../../utils/const';
+import {useAppSelector} from '../../hooks/store-hooks';
+import {filterFilms, getPromoFilm} from '../../store/Slices/Films-Process/selectors';
 
 export default function MainPage(): JSX.Element {
   const navigate = useNavigate();
-  const {filmsByGenre, promoFilm} = useSelector((state: StateType) => state);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const filmsByGenre = useAppSelector(filterFilms);
 
   return (
     <>

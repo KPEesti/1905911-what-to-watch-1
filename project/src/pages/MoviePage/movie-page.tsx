@@ -7,24 +7,27 @@ import {AppRoutes, AuthorizationStatus} from '../../utils/const';
 import {useEffect, useState} from 'react';
 import {dispatch} from '../../types/state';
 import {useAppSelector} from '../../hooks/store-hooks';
-import {getFullFilmInfoAction} from '../../store/aip-actions';
+import {getFullFilmInfoAction} from '../../store/api-actions';
 import Spinner from '../../components/Spinner/spinner';
-import {setFilmByID, setReviews, setSameFilms} from '../../store/action';
+import {setFilmByID, setReviews, setSimilarFilms} from '../../store/Slices/Film-Process/film-process';
+import {getAuthStatus} from '../../store/Slices/User-Process/selectors';
+import {getFilmByID, getReviews, getSimilarFilms} from '../../store/Slices/Film-Process/selectors';
 
 export default function MoviePage() {
   const id = Number(useParams().id);
   const navigate = useNavigate();
 
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const film = useAppSelector((state) => state.filmByID);
-  const similarFilms = useAppSelector((state) => state.sameFilms);
-  const reviews = useAppSelector((state) => state.reviews);
+  const authStatus = useAppSelector(getAuthStatus);
+  const film = useAppSelector(getFilmByID);
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const reviews = useAppSelector(getReviews);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(
     () => {
       let mounted = true;
+      setLoading(true);
 
       if (mounted) {
         dispatch(getFullFilmInfoAction(id)).then(() => setLoading(false));
@@ -33,7 +36,7 @@ export default function MoviePage() {
       return () => {
         mounted = false;
         dispatch(setFilmByID(null));
-        dispatch(setSameFilms([]));
+        dispatch(setSimilarFilms([]));
         dispatch(setReviews([]));
       };
     }, [id]
