@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {AppRoutes, AppStatus, AuthorizationStatus} from '../../utils/consts';
+import {AppRoutes, AppStatus, AuthorizationStatus} from '../../utils/const';
 
 import MainPage from '../../pages/MainPage/main-page';
 import LoginPage from '../../pages/LoginPage/login-page';
@@ -46,6 +46,7 @@ function App(): JSX.Element {
           }
         />
         <Route path={`${AppRoutes.PlayerRoot}:id`} element={<PlayerPage/>}/>
+        <Route path={'/pageNotFound'} element={<NotFoundPage/>}/>
         <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>
     </BrowserRouter>

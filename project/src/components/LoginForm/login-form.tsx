@@ -2,6 +2,7 @@ import {FormEvent, useRef, useState} from 'react';
 import {dispatch} from '../../types/state';
 import {loginAction} from '../../store/aip-actions';
 import {useNavigate} from 'react-router-dom';
+import {AppRoutes} from '../../utils/const';
 
 enum FormStatus {
   VALID,
@@ -63,7 +64,7 @@ export default function LoginForm() {
         email: emailRef.current?.value,
         password: passRef.current?.value
       }));
-      navigate('/');
+      navigate(AppRoutes.Root);
     }
   };
 

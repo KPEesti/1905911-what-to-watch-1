@@ -6,38 +6,27 @@ import {
   getFilmsByGenre,
   requireAuthorization,
   setAppStatus,
-  setError,
+  setError, setFilmByID,
   setFilms,
-  setPromoFilm
+  setPromoFilm, setReviews, setSameFilms
 } from './action';
-import {AppStatus, AuthorizationStatus} from '../utils/consts';
+import {AppStatus, AuthorizationStatus} from '../utils/const';
+import {ReviewType} from '../types/review-type';
 
 const initialState: StateType = {
-  selectedGenre: 'All genres',
-  filmsByGenre: new Array<FilmType>(),
-  films: new Array<FilmType>(),
-  promoFilm: {
-    id: 1,
-    name: 'string',
-    posterImage: 'string',
-    previewImage: 'string',
-    backgroundImage: 'string',
-    backgroundColor: 'string',
-    videoLink: 'string',
-    previewVideoLink: 'string',
-    description: 'string',
-    rating: 1,
-    scoresCount: 1,
-    director: 'string',
-    starring: [],
-    runTime: 1,
-    genre: 'string',
-    released: 1,
-    isFavorite: false,
-  },
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   appStatus: AppStatus.Ok,
+
+  selectedGenre: 'All genres',
+  filmsByGenre: new Array<FilmType>(),
+  films: new Array<FilmType>(),
+
+  promoFilm: null,
+
+  filmByID: null,
+  sameFilms: new Array<FilmType>(),
+  reviews: new Array<ReviewType>()
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -51,6 +40,15 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setFilms, (state, action) => {
       state.films = action.payload;
       state.filmsByGenre = action.payload;
+    })
+    .addCase(setFilmByID, (state, action) => {
+      state.filmByID = action.payload;
+    })
+    .addCase(setSameFilms, (state, action) => {
+      state.sameFilms = action.payload;
+    })
+    .addCase(setReviews, (state, action) => {
+      state.reviews = action.payload;
     })
     .addCase(setPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
