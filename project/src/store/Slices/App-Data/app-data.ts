@@ -1,13 +1,13 @@
-import {AppProcess} from '../../../types/app-process';
 import {AppStatus, NameSpace} from '../../../utils/const';
 import {createSlice} from '@reduxjs/toolkit';
+import {AppProcess} from '../../../types/state-type';
 
 const initialState : AppProcess = {
-  appStatus: AppStatus.Ok,
+  appStatus: AppStatus.Loading,
   error: null,
 };
 
-export const appProcess = createSlice({
+export const appData = createSlice({
   name: NameSpace.App,
   initialState,
   reducers: {
@@ -20,4 +20,4 @@ export const appProcess = createSlice({
   }
 });
 
-export const {setAppStatus, setError} = appProcess.actions;
+export const {setAppStatus, setError} = appData.actions;

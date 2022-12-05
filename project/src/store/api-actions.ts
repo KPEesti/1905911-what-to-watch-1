@@ -4,14 +4,15 @@ import {AxiosInstance} from 'axios';
 import {FilmType} from '../types/film-type';
 import {APIRoutes, AppRoutes, AppStatus} from '../utils/const';
 import {redirectToRoute} from './action';
-import {AuthData} from '../types/auth-data';
-import {UserData} from '../types/user-data';
+import {AuthType} from '../types/auth-type';
+import {UserType} from '../types/user-type';
 import {dropToken, setToken} from '../services/token';
 import {ReviewType} from '../types/review-type';
-import {setAppStatus} from './Slices/App-Process/app-process';
-import {setFilms, setPromoFilm} from './Slices/Films-Process/films-process';
-import {setFilmByID, setSimilarFilms, setReviews} from './Slices/Film-Process/film-process';
-import {setUserData} from './Slices/User-Process/user-process';
+import {setAppStatus} from './Slices/App-Data/app-data';
+import {setFilms, setPromoFilm} from './Slices/Films-Data/films-data';
+import {setFilmByID, setSimilarFilms, setReviews} from './Slices/Film-Data/film-data';
+import {setUserData} from './Slices/User-Data/user-data';
+import {setFavoriteFilms} from './Slices/Favorite-Data/favorite-data';
 
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
@@ -52,7 +53,9 @@ export const fetchFilmByIDAction = createAsyncThunk<void, number, {
       const {data} = await api.get<FilmType>(`${APIRoutes.Films}/${ID}`);
       dispatch(setFilmByID(data));
     } catch (e) {
+      dispatch(setAppStatus(AppStatus.Loading));
       dispatch(redirectToRoute(AppRoutes.NotFoundPage));
+      dispatch(setAppStatus(AppStatus.Ok));
     }
   }
 );
@@ -106,10 +109,31 @@ export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
 }>(
   'films/getPromoFilm',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setAppStatus(AppStatus.Loading));
     const {data} = await api.get<FilmType>(APIRoutes.PromoFilm);
     dispatch(setPromoFilm(data));
-    dispatch(setAppStatus(AppStatus.Ok));
+  }
+);
+
+export const fetchFavoriteAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/getFavoriteFilms',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmType[]>(APIRoutes.Favorite);
+    dispatch(setFavoriteFilms(data));
+  }
+);
+
+export const postFavoriteAction = createAsyncThunk<void, { filmID: number, status: number }, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/postFavorite',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.post(`${APIRoutes.Favorite}/${_arg.filmID}/${_arg.status}`);
   }
 );
 
@@ -120,19 +144,19 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 }>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<UserData>(APIRoutes.Login);
+    const {data} = await api.get<UserType>(APIRoutes.Login);
     dispatch(setUserData(data));
   }
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<void, AuthType, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data} = await api.post<UserData>(APIRoutes.Login, {email, password});
+    const {data} = await api.post<UserType>(APIRoutes.Login, {email, password});
     dispatch(setUserData(data));
     setToken(data.token);
   },

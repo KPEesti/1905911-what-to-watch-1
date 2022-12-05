@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {locateGenre} from '../../utils/film-manager';
-import {changeGenre} from '../../store/Slices/Films-Process/films-process';
+import {changeGenre} from '../../store/Slices/Films-Data/films-data';
 import {useAppSelector} from '../../hooks/store-hooks';
-import {filterFilms, getFilms, getGenre} from '../../store/Slices/Films-Process/selectors';
+import {filterFilms, getFilms, getGenre} from '../../store/Slices/Films-Data/selectors';
 import FilmsList from '../FilmsList/films-list';
 
 

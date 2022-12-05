@@ -10,20 +10,17 @@ import PlayerPage from '../../pages/PlayerPage/player-page';
 import NotFoundPage from '../../pages/NotFoundPage/not-found-page';
 import PrivateRoute from '../PrivateRoute/private-route';
 import Spinner from '../Spinner/spinner';
-
 import {useAppSelector} from '../../hooks/store-hooks';
-import {getAuthStatus} from '../../store/Slices/User-Process/selectors';
-import {getAppStatus} from '../../store/Slices/App-Process/selectors';
+import {getAppStatus} from '../../store/Slices/App-Data/selectors';
+import {getAuthStatus} from '../../store/Slices/User-Data/selectors';
 
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthStatus);
   const appStatus = useAppSelector(getAppStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || appStatus === AppStatus.Loading) {
-    return (
-      <Spinner/>
-    );
+  if (appStatus === AppStatus.Loading || authStatus === AuthorizationStatus.Unknown) {
+    return <Spinner/>;
   }
 
   return (

@@ -1,4 +1,4 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import ReviewForm from '../../components/ReviewForm/review-form';
 import {AppRoutes} from '../../utils/const';
 import {dispatch} from '../../types/state';
@@ -6,27 +6,27 @@ import {fetchFilmByIDAction, logoutAction} from '../../store/api-actions';
 import {useAppSelector} from '../../hooks/store-hooks';
 import {useEffect, useState} from 'react';
 import Spinner from '../../components/Spinner/spinner';
-import {setFilmByID} from '../../store/Slices/Film-Process/film-process';
-import {getFilmByID} from '../../store/Slices/Film-Process/selectors';
+import {setFilmByID} from '../../store/Slices/Film-Data/film-data';
+import {getFilmByID} from '../../store/Slices/Film-Data/selectors';
+import {getUserData} from '../../store/Slices/User-Data/selectors';
 
 export default function ReviewPage() {
+  const navigate = useNavigate();
   const id = Number(useParams().id);
+
   const film = useAppSelector(getFilmByID);
+  const userData = useAppSelector(getUserData);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(
     () => {
-      let mounted = true;
-
-      if(mounted) {
-        dispatch(fetchFilmByIDAction(id)).then(() => setLoading(false));
-      }
+      dispatch(fetchFilmByIDAction(id)).then(() => setLoading(false));
 
       return () => {
-        mounted = false;
         dispatch(setFilmByID(null));
       };
-    }, [id]
+    }, []
   );
 
   if (loading) {
@@ -67,9 +67,9 @@ export default function ReviewPage() {
 
           <ul className="user-block">
             <li className="user-block__item">
-              <div className="user-block__avatar">
+              <div className="user-block__avatar" onClick={() => navigate(AppRoutes.MyList)}>
                 <img
-                  src="img/avatar.jpg"
+                  src={userData?.avatarUrl}
                   alt="User avatar"
                   width="63"
                   height="63"

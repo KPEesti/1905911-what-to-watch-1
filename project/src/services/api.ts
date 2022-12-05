@@ -1,7 +1,7 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
 import {getToken} from './token';
 import {useAppDispatch} from '../hooks/store-hooks';
-import {setError} from '../store/Slices/App-Process/app-process';
+import {setError} from '../store/Slices/App-Data/app-data';
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;

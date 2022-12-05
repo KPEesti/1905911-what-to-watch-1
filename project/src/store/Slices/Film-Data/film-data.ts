@@ -1,16 +1,16 @@
-import {FilmProcess} from '../../../types/film-process';
 import {FilmType} from '../../../types/film-type';
 import {ReviewType} from '../../../types/review-type';
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../../utils/const';
+import {FilmData} from '../../../types/state-type';
 
-const initialState: FilmProcess = {
+const initialState: FilmData = {
   filmByID: null,
   similarFilms: new Array<FilmType>(),
   reviews: new Array<ReviewType>(),
 };
 
-export const filmProcess = createSlice({
+export const filmData = createSlice({
   name: NameSpace.Film,
   initialState,
   reducers: {
@@ -26,4 +26,4 @@ export const filmProcess = createSlice({
   }
 });
 
-export const {setFilmByID, setSimilarFilms, setReviews} = filmProcess.actions;
+export const {setFilmByID, setSimilarFilms, setReviews} = filmData.actions;

@@ -7,11 +7,12 @@ import {AppRoutes, AuthorizationStatus} from '../../utils/const';
 import {useEffect, useState} from 'react';
 import {dispatch} from '../../types/state';
 import {useAppSelector} from '../../hooks/store-hooks';
-import {getFullFilmInfoAction} from '../../store/api-actions';
+import {fetchFavoriteAction, getFullFilmInfoAction} from '../../store/api-actions';
 import Spinner from '../../components/Spinner/spinner';
-import {setFilmByID, setReviews, setSimilarFilms} from '../../store/Slices/Film-Process/film-process';
-import {getAuthStatus} from '../../store/Slices/User-Process/selectors';
-import {getFilmByID, getReviews, getSimilarFilms} from '../../store/Slices/Film-Process/selectors';
+import {getAuthStatus} from '../../store/Slices/User-Data/selectors';
+import {getFilmByID, getReviews, getSimilarFilms} from '../../store/Slices/Film-Data/selectors';
+import AddButton from '../../components/AddButton/add-button';
+import NotFoundPage from '../NotFoundPage/not-found-page';
 
 export default function MoviePage() {
   const id = Number(useParams().id);
@@ -26,24 +27,17 @@ export default function MoviePage() {
 
   useEffect(
     () => {
-      let mounted = true;
-      setLoading(true);
-
-      if (mounted) {
-        dispatch(getFullFilmInfoAction(id)).then(() => setLoading(false));
-      }
-
-      return () => {
-        mounted = false;
-        dispatch(setFilmByID(null));
-        dispatch(setSimilarFilms([]));
-        dispatch(setReviews([]));
-      };
-    }, [id]
+      dispatch(fetchFavoriteAction());
+      dispatch(getFullFilmInfoAction(id)).then(() => setLoading(false));
+    }, [id, dispatch]
   );
 
   if (loading) {
     return <Spinner/>;
+  }
+
+  if (!film) {
+    return <NotFoundPage/>;
   }
 
   return (
@@ -78,17 +72,7 @@ export default function MoviePage() {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => navigate(AppRoutes.MyList)}
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <AddButton film={film}/>
                 {
                   authStatus === AuthorizationStatus.Auth &&
                   <Link to={AppRoutes.FilmsRoot + id + AppRoutes.FilmsReview} className="btn film-card__button">

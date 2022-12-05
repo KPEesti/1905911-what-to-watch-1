@@ -10,6 +10,7 @@ export enum AppRoutes {
 
 export enum APIRoutes {
   Films = '/films',
+  Favorite = '/favorite',
   PromoFilm = '/promo',
   Similar = '/similar',
   Reviews = '/comments/',
@@ -22,6 +23,7 @@ export enum NameSpace {
   App = 'APP',
   Films = 'FILMS',
   Film = 'FILM',
+  Favorite = 'FAVORITE',
 }
 
 export enum AuthorizationStatus {
