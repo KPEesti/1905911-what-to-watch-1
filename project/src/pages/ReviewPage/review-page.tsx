@@ -26,7 +26,7 @@ export default function ReviewPage() {
       return () => {
         dispatch(setFilmByID(null));
       };
-    }, []
+    }, [id]
   );
 
   if (loading) {
@@ -60,7 +60,7 @@ export default function ReviewPage() {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <span className="breadcrumbs__link">Add review</span>
               </li>
             </ul>
           </nav>
@@ -77,7 +77,7 @@ export default function ReviewPage() {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link" onClick={() => dispatch(logoutAction())}>Sign out</a>
+              <span className="user-block__link" onClick={() => dispatch(logoutAction())}>Sign out</span>
             </li>
           </ul>
         </header>

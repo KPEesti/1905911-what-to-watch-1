@@ -63,7 +63,7 @@ export default function Player() {
         mounted = false;
         dispatch(setFilmByID(null));
       };
-    }, [id, dispatch]
+    }, [id]
   );
 
   useEffect(

@@ -31,7 +31,7 @@ export default function AddButton({film}: AddButtonProps) {
     } else {
       setCount((prevState) => prevState + 1);
     }
-    dispatch(postFavoriteAction({filmID: film?.id, status: Number(!isFavorite)}));
+    dispatch(postFavoriteAction({filmID: film?.id ? film?.id : 1, status: Number(!isFavorite)}));
   };
   return authStatus === AuthorizationStatus.Auth
     ?

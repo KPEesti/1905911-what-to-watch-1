@@ -36,9 +36,9 @@ export default function Catalog() {
         {
           tabsArr.map((tab) => (
             <li key={tab} className={`catalog__genres-item ${setActiveStyle(tab)}`}>
-              <a href="#" className="catalog__genres-link" onClick={(e) => handleClick(e, tab)}>
+              <span className="catalog__genres-link" onClick={(e) => handleClick(e, tab)}>
                 {tab}
-              </a>
+              </span>
             </li>
           ))
         }

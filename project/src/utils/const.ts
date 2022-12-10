@@ -37,4 +37,8 @@ export enum AppStatus {
   Ok,
 }
 
-
+export enum TabNames {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews'
+}

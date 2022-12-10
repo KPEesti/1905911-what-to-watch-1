@@ -10,7 +10,7 @@ import {useAppSelector} from '../../hooks/store-hooks';
 import {fetchFavoriteAction, getFullFilmInfoAction} from '../../store/api-actions';
 import Spinner from '../../components/Spinner/spinner';
 import {getAuthStatus} from '../../store/Slices/User-Data/selectors';
-import {getFilmByID, getReviews, getSimilarFilms} from '../../store/Slices/Film-Data/selectors';
+import {getFilmByID, getSimilarFilms} from '../../store/Slices/Film-Data/selectors';
 import AddButton from '../../components/AddButton/add-button';
 import NotFoundPage from '../NotFoundPage/not-found-page';
 
@@ -21,7 +21,6 @@ export default function MoviePage() {
   const authStatus = useAppSelector(getAuthStatus);
   const film = useAppSelector(getFilmByID);
   const similarFilms = useAppSelector(getSimilarFilms);
-  const reviews = useAppSelector(getReviews);
 
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +28,7 @@ export default function MoviePage() {
     () => {
       dispatch(fetchFavoriteAction());
       dispatch(getFullFilmInfoAction(id)).then(() => setLoading(false));
-    }, [id, dispatch]
+    }, [id]
   );
 
   if (loading) {
@@ -95,7 +94,7 @@ export default function MoviePage() {
               />
             </div>
 
-            <Tabs film={film} reviews={reviews}/>
+            <Tabs film={film}/>
 
           </div>
         </div>
