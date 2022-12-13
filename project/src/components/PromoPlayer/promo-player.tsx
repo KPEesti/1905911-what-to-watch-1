@@ -23,7 +23,7 @@ export default function PromoPlayer({film, cardActive}: PromoPlayerProps) {
 
   return (
     <video ref={ref} src={film.previewVideoLink} muted loop poster={film.previewImage}
-      autoPlay={cardActive}
+      autoPlay={cardActive} width="280" height="175"
     >
     </video>
   );

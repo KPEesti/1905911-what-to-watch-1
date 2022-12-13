@@ -20,9 +20,9 @@ export default function FilmCard({film}: FilmCardProps): JSX.Element {
         <PromoPlayer film={film} cardActive={isActive}/>
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="#">
+        <span className="small-film-card__link">
           {film.name}
-        </a>
+        </span>
       </h3>
     </article>
   );

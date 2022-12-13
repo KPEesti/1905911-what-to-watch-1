@@ -3,11 +3,12 @@ import {useAppSelector} from '../../hooks/store-hooks';
 import {AppRoutes, AuthorizationStatus} from '../../utils/const';
 import {dispatch} from '../../types/state';
 import {logoutAction} from '../../store/api-actions';
-import {getAuthStatus} from '../../store/Slices/User-Process/selectors';
+import {getAuthStatus, getUserData} from '../../store/Slices/User-Data/selectors';
 
 
 export default function Header() {
   const authorizationStatus = useAppSelector(getAuthStatus);
+  const userData = useAppSelector(getUserData);
 
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ export default function Header() {
             <li className="user-block__item">
               <div className="user-block__avatar" onClick={() => navigate(AppRoutes.MyList)}>
                 <img
-                  src="img/avatar.jpg"
+                  src={userData?.avatarUrl}
                   alt="User avatar"
                   width="63"
                   height="63"

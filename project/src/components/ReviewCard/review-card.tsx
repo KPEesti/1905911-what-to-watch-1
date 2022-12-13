@@ -10,7 +10,7 @@ export default function ReviewCard({review}: ReviewCardProps) {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const convertDateToString = (date: string) => `${monthNames[Number(review.date.slice(5, 7))]} ${review.date.slice(8, 10)}, ${review.date.slice(0, 4)}`;
+  const convertDateToString = (date: string) => `${monthNames[Number(review.date.slice(5, 7)) - 1]} ${review.date.slice(8, 10)}, ${review.date.slice(0, 4)}`;
 
   return (
     <div className="review">

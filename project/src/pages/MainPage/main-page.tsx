@@ -4,11 +4,30 @@ import Header from '../../components/Header/header';
 import Catalog from '../../components/Catalog/catalog';
 import {AppRoutes} from '../../utils/const';
 import {useAppSelector} from '../../hooks/store-hooks';
-import {getPromoFilm} from '../../store/Slices/Films-Process/selectors';
+import {getPromoFilm} from '../../store/Slices/Films-Data/selectors';
+import React, {useEffect, useState} from 'react';
+import AddButton from '../../components/AddButton/add-button';
+import {dispatch} from '../../types/state';
+import {fetchFavoriteAction, fetchPromoFilmAction} from '../../store/api-actions';
+import Spinner from '../../components/Spinner/spinner';
 
 export default function MainPage(): JSX.Element {
   const navigate = useNavigate();
   const promoFilm = useAppSelector(getPromoFilm);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(
+    () => {
+      dispatch(fetchFavoriteAction());
+      dispatch(fetchPromoFilmAction()).then(() => setLoading(false));
+    }, []
+  );
+
+  if (loading) {
+    return (
+      <Spinner/>
+    );
+  }
 
   return (
     <>
@@ -51,17 +70,7 @@ export default function MainPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => navigate(AppRoutes.MyList)}
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <AddButton film={promoFilm}/>
               </div>
             </div>
           </div>

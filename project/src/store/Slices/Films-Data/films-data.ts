@@ -1,15 +1,15 @@
-import {FilmsProcess} from '../../../types/films-process';
 import {FilmType} from '../../../types/film-type';
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../../utils/const';
+import {FilmsData} from '../../../types/state-type';
 
-const initialState : FilmsProcess = {
+const initialState : FilmsData = {
   selectedGenre: 'All genres',
   films: new Array<FilmType>(),
   promoFilm: null,
 };
 
-export const filmsProcess = createSlice({
+export const filmsData = createSlice({
   name: NameSpace.Films,
   initialState,
   reducers: {
@@ -25,4 +25,4 @@ export const filmsProcess = createSlice({
   }
 });
 
-export const {changeGenre, setFilms, setPromoFilm} = filmsProcess.actions;
+export const {changeGenre, setFilms, setPromoFilm} = filmsData.actions;

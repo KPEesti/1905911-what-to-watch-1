@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {checkAuthAction, fetchFilmsAction, fetchPromoFilmAction} from './store/api-actions';
+import {checkAuthAction, fetchFavoriteAction, fetchFilmsAction} from './store/api-actions';
 import {dispatch} from './types/state';
 
 const root = ReactDOM.createRoot(
@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 dispatch(checkAuthAction());
 dispatch(fetchFilmsAction());
-dispatch(fetchPromoFilmAction());
+dispatch(fetchFavoriteAction());
 
 root.render(
   <React.StrictMode>
